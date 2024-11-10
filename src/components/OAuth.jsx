@@ -25,7 +25,7 @@ function OAuth() {
         await setDoc(doc(db, 'users', user.uid), {
           name: user.displayName,
           email: user.email,
-          timestamp: serverTimestamp()
+          timestamp: serverTimestamp(),
         })
       }
       navigate('/')
@@ -35,11 +35,13 @@ function OAuth() {
   }
 
   return (
-    <div className='socialLogin'>
-      <p>Sign In {location.pathname === '/sign-up' ? 'up' : 'in'}
-      with </p>
-      <button className='socialIconDiv' onClick={onGoogleClick}>
-        <img className='socialIconImg' src={googleIcon} alt='google' />
+    <div className="socialLogin">
+      <p>
+        Sign In {location.pathname === '/sign-up' ? 'up' : 'in'}
+        with{' '}
+      </p>
+      <button className="socialIconDiv" onClick={onGoogleClick}>
+        <img className="socialIconImg" src={googleIcon} alt="google" />
       </button>
     </div>
   )

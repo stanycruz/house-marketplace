@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { Link, useNavigate } from 'react-router-dom'
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth'
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../firebase.config'
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg'
@@ -32,8 +36,7 @@ function SignUp() {
     try {
       const auth = getAuth()
 
-      const userCredencial = await createUserWithEmailAndPassword
-      (
+      const userCredencial = await createUserWithEmailAndPassword(
         auth,
         email,
         password
@@ -42,10 +45,10 @@ function SignUp() {
       const user = userCredencial.user
 
       updateProfile(auth.currentUser, {
-        displayName: name
+        displayName: name,
       })
 
-      const formDataCopy = {...formData}
+      const formDataCopy = { ...formData }
       delete formDataCopy.password
       formDataCopy.timestamp = serverTimestamp()
 
@@ -59,68 +62,63 @@ function SignUp() {
 
   return (
     <>
-      <div className='pageContainer'>
+      <div className="pageContainer">
         <header>
-          <p className='pageHeader'>
-            Welcome Back!
-          </p>
+          <p className="pageHeader">Welcome Back!</p>
         </header>
 
         <form onSubmit={onSubmit}>
-          <input 
-            type='text' 
-            className='nameInput' 
-            placeholder='Name'
-            id='name'
+          <input
+            type="text"
+            className="nameInput"
+            placeholder="Name"
+            id="name"
             value={name}
             onChange={onChange}
           />
 
-          <input 
-            type='email' 
-            className='emailInput' 
-            placeholder='Email'
-            id='email'
+          <input
+            type="email"
+            className="emailInput"
+            placeholder="Email"
+            id="email"
             value={email}
             onChange={onChange}
           />
 
-          <div className='passwordInputDiv'>
-            <input 
-              type={ showPassword ? 'text' : 'password' }
-              className='passwordInput'
-              placeholder='Password'
-              id='password'
+          <div className="passwordInputDiv">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              className="passwordInput"
+              placeholder="Password"
+              id="password"
               value={password}
               onChange={onChange}
             />
 
-            <img 
-              src={visibilityIcon} 
-              alt='show password' 
-              className='showPassword'
-              onClick={() => setShowPassword((prevState) => 
-              !prevState)} />
+            <img
+              src={visibilityIcon}
+              alt="show password"
+              className="showPassword"
+              onClick={() => setShowPassword((prevState) => !prevState)}
+            />
           </div>
 
-          <Link 
-            to='/forgot-password'
-            className='forgotPasswordLink'>
-              Forgot Password
+          <Link to="/forgot-password" className="forgotPasswordLink">
+            Forgot Password
           </Link>
 
-          <div className='signUpBar'>
-            <p className='signUpText'>Sign Up</p>
-            <button className='signUpButton'>
-              <ArrowRightIcon fill='#ffffff' width='34px'
-              height='34px' />
+          <div className="signUpBar">
+            <p className="signUpText">Sign Up</p>
+            <button className="signUpButton">
+              <ArrowRightIcon fill="#ffffff" width="34px" height="34px" />
             </button>
           </div>
         </form>
-        
+
         <OAuth />
 
-        <Link to='/sign-in' className='registerLink'>
+        <Link to="/sign-in" className="registerLink">
           Sign In Instead
         </Link>
       </div>
